@@ -32,7 +32,8 @@ def test_translate_content(sample_raw_content, tmp_path):
     def mock_translate(text, src, dest):
         """Mock translate function."""
         return Mock(text=mock_translations.get(text, f"Translated {text}"))
-
+    
+    # patching translator object to isolate fxn
     with patch("src.translation.translate.Translator") as MockTranslator:
         mock_translator = MockTranslator.return_value
         mock_translator.translate.side_effect = mock_translate
